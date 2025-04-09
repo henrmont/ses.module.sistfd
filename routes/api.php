@@ -9,8 +9,10 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // })->middleware('auth:sanctum');
 
-Route::group(['middleware' => 'api', 'prefix' => 'paciente'], function ($router) {
+Route::group(['middleware' => 'api'], function ($router) {
 
-    Route::get('get/pacientes', [PacienteController::class, 'getPacientes'])->middleware(Auth::class);
+    Route::get('welcome', function() {
+        return response()->json('Welcome to SISTFD API', 200);
+    })->middleware(Auth::class);
 
 });
