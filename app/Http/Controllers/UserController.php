@@ -13,7 +13,9 @@ class UserController extends Controller
     public function getUsers()
     {
         $this->authorize('sistfd/usuário listar');
-        $users = User::with(['roles'])->where('id','<>',1)->where('id','<>',auth()->user()->id)->orderBy('created_at','desc')->get();
+        $users = User::with(['modules','roles'])->whereHas('modules', function($q) {
+            $q->where('name', 'sistfd');
+        })->where('id','<>',1)->where('id','<>',auth()->user()->id)->orderBy('created_at','desc')->get();
         return response()->json($users, 200);
     }
 }
